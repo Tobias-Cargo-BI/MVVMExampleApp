@@ -16,6 +16,5 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Label Content="{Binding BoundText}" FontSize="30" />
-        <TextBox Grid.Row="1" Text="{Binding BoundText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </Window>

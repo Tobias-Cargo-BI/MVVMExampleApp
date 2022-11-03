@@ -12,7 +12,6 @@ namespace MVVMExampleApp
             set
             {
                 _boundText = value;
-                OnPropertyChanged();
             }
         }
 
