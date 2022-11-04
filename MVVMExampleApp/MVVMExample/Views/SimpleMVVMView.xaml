@@ -5,13 +5,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MVVMExampleApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:MVVMExampleApp.MVVMExample.Models"
     Title="MainWindow"
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance Type=local:SimpleMVVMViewModel}"
     mc:Ignorable="d">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type models:Customer}">
+            <Border Background="Teal" CornerRadius="5">
+                <StackPanel>
+                    <Label Content="{Binding Name}" />
+                    <Label Content="{Binding ID}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -25,5 +37,6 @@
             Command="{Binding ClearTextCommand}"
             Content="Clear the text" />
         <ListBox Grid.Row="3" ItemsSource="{Binding BoundCollection}" />
+        <ContentPresenter Grid.Row="4" Content="{Binding Customer}" />
     </Grid>
 </Window>

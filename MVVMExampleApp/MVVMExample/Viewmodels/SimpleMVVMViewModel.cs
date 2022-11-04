@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MVVMExampleApp.MVVMExample.Models;
 using System.Collections.ObjectModel;
 
 namespace MVVMExampleApp
@@ -18,6 +19,16 @@ namespace MVVMExampleApp
             }
         }
 
+        private Customer _customer;
+        public Customer Customer
+        {
+            get { return _customer; }
+            set
+            {
+                _customer = value;
+            }
+        }
+
         public ObservableCollection<string> BoundCollection { get; set; }
 
         public RelayCommand ClearTextCommand { get; }
@@ -30,6 +41,11 @@ namespace MVVMExampleApp
             BoundCollection = new ObservableCollection<string>()
             {
                 "This","Is","An","Observed","Collection"
+            };
+            Customer = new Customer()
+            {
+                Name = "Jonathan Smith",
+                ID = 123456789
             };
         }
 
