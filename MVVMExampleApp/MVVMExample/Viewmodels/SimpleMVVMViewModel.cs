@@ -2,59 +2,93 @@
 using CommunityToolkit.Mvvm.Input;
 using MVVMExampleApp.MVVMExample.Models;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace MVVMExampleApp
 {
     public class SimpleMVVMViewModel : ObservableObject
     {
-        private string _boundText;
-
-        public string BoundText
+        #region Observable Properties
+        private string _name;
+        public string Name
         {
-            get { return _boundText; }
+            get { return _name; }
             set
             {
-                _boundText = value;
+                _name = value;
                 OnPropertyChanged();
             }
         }
 
-        private Customer _customer;
-        public Customer Customer
+        private string _id;
+        public string ID
         {
-            get { return _customer; }
+            get { return _id; }
             set
             {
-                _customer = value;
+                _id = value;
+                OnPropertyChanged();
             }
         }
 
-        public ObservableCollection<string> BoundCollection { get; set; }
+        private ObservableCollection<Customer> _customers;
+        public ObservableCollection<Customer> Customers
+        {
+            get { return _customers; }
+            set
+            {
+                _customers = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
 
-        public RelayCommand ClearTextCommand { get; }
-
+        #region Commands
+        public RelayCommand AddCustomerCommand {get;}
+        public RelayCommand DeleteCustomerCommand { get; }
+        public RelayCommand LoadCustomersCommand { get; }
+        #endregion
 
         public SimpleMVVMViewModel()
         {
-            BoundText = "This is my text";
-            ClearTextCommand = new RelayCommand(Clear);
-            BoundCollection = new ObservableCollection<string>()
-            {
-                "This","Is","An","Observed","Collection"
-            };
-            Customer = new Customer()
-            {
-                Name = "Jonathan Smith",
-                ID = 123456789
-            };
+            Customers = new ObservableCollection<Customer>();
+
+            AddCustomerCommand = new RelayCommand(AddCustomer);
+            DeleteCustomerCommand = new RelayCommand(DeleteCustomer);
+            LoadCustomersCommand = new RelayCommand(LoadCustomers);
+
         }
 
-        public void Clear()
+        public void AddCustomer()
         {
-            BoundText = "";
+            if (!int.TryParse(ID, out _))
+            {
+                MessageBox.Show("Could not convert ID");
+                return;
+            }
+            Customer customer = new()
+            {
+                Name = this.Name,
+                ID = int.Parse(this.ID)
+            };
+            Customers.Add(customer);
+            Name = "";
+            ID = "";
         }
-
-
-
+        public void DeleteCustomer()
+        {
+            Customers.RemoveAt(Customers.Count - 1);
+        }
+        public void LoadCustomers()
+        {
+            Customers = new()
+            {
+                new(){Name = "Alice", ID=47427552},
+                new(){Name = "Bob", ID=98414564},
+                new(){Name = "Christian", ID=34658465},
+                new(){Name = "Dennis", ID=12458974},
+                new(){Name = "Erin", ID=32689547},
+            };
+        }
     }
 }

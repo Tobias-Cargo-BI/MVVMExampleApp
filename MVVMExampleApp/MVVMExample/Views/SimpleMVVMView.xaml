@@ -22,21 +22,40 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <Label Content="{Binding BoundText}" FontSize="30" />
-        <TextBox Grid.Row="1" Text="{Binding BoundText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <Button
-            Grid.Row="2"
-            Width="100"
-            Command="{Binding ClearTextCommand}"
-            Content="Clear the text" />
-        <ListBox Grid.Row="3" ItemsSource="{Binding BoundCollection}" />
-        <ContentPresenter Grid.Row="4" Content="{Binding Customer}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <ListView
+            Grid.Column="0"
+            Margin="10"
+            Background="MidnightBlue"
+            ItemsSource="{Binding Customers}" />
+        <StackPanel Grid.Column="1">
+            <Label Content="Customer Creation" />
+            <Label Content="name:" />
+            <TextBox Margin="10,0" Text="{Binding Name}" />
+            <Label Content="id:" />
+            <TextBox Margin="10,0" Text="{Binding ID}" />
+            <Grid Margin="5,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="0"
+                    Command="{Binding LoadCustomersCommand}"
+                    Content="Load" />
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding AddCustomerCommand}"
+                    Content="Add" />
+                <Button
+                    Grid.Column="2"
+                    Command="{Binding DeleteCustomerCommand}"
+                    Content="Delete" />
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>
