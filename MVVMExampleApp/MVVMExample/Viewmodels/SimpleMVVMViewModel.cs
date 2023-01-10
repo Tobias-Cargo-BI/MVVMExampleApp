@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace MVVMExampleApp
 {
@@ -16,9 +17,16 @@ namespace MVVMExampleApp
             }
         }
 
+        public RelayCommand ClearTextCommand { get; }
+
         public SimpleMVVMViewModel()
         {
             BoundText = "This is my text";
+        }
+
+        public void Clear()
+        {
+            BoundText = "";
         }
 
     }
